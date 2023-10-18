@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import Industry from '../../public/industry.png'
-import Number1 from '../../public/number-one.png'
-import Trophy from '../../public/trophy.png'
+import Industry from '../../../public/industry.png'
+import Number1 from '../../../public/number-one.png'
+import Trophy from '../../../public/trophy.png'
 import Link from 'next/link'
 const WhyChooseUs = () => {
     return (

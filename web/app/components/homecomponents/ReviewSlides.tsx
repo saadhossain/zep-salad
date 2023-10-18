@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import "react-image-gallery/styles/css/image-gallery.css";
-import Review1 from '../../public/reviews/review-1.webp';
-import Review2 from '../../public/reviews/review-2.webp';
-import Review3 from '../../public/reviews/review-3.webp';
+import Review1 from '../../../public/reviews/review-1.webp';
+import Review2 from '../../../public/reviews/review-2.webp';
+import Review3 from '../../../public/reviews/review-3.webp';
 
 const ReviewSlides = () => {
     return (

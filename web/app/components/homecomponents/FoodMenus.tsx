@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import Menus1 from '../../public/menus/menu-items-1.png'
-import Menus2 from '../../public/menus/menu-items-2.png'
-import Menus3 from '../../public/menus/menu-items-3.png'
+import Menus1 from '../../../public/menus/menu-items-1.png'
+import Menus2 from '../../../public/menus/menu-items-2.png'
+import Menus3 from '../../../public/menus/menu-items-3.png'
 
 const FoodMenus = () => {
     return (

@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import HeroImage from '../../public/hero-image.png'
+import HeroImage from '../../../public/hero-image.png'
 import Link from 'next/link'
 
 const HeroSection = () => {

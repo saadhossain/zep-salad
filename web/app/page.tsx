@@ -1,19 +1,18 @@
-import FoodMenus from './components/FoodMenus';
-import Footer from './components/Footer';
-import HeroSection from './components/HeroSection';
-import Subscribe from './components/Subscribe';
-import Testimonials from './components/Testimonials';
-import WhyChooseUs from './components/WhyChooseUs';
+import FoodMenus from './components/homecomponents/FoodMenus';
+import HeroSection from './components/homecomponents/HeroSection';
+import Subscribe from './components/homecomponents/Subscribe';
+import Testimonials from './components/homecomponents/Testimonials';
+import WhyChooseUs from './components/homecomponents/WhyChooseUs';
+
 
 export default function Home() {
   return (
     <main>
-      <HeroSection/>
-      <WhyChooseUs/>
-      <Testimonials/>
-      <FoodMenus/>
-      <Subscribe/>
-      <Footer/>
+      <HeroSection />
+      <WhyChooseUs />
+      <Testimonials />
+      <FoodMenus />
+      <Subscribe />
     </main>
   )
 }

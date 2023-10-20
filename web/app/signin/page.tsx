@@ -4,9 +4,10 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthProvider';
 import GoogleLoginFunctionality from './GoogleLoginFunctionality';
 import ButtonLoader from '../components/loader/ButtonLoader';
+import { ContextProps } from '../interfaces/interfaces';
 
 const SignIn = () => {
-    const { userLogin, loading, setLoading } = useContext(AuthContext);
+    const { userLogin, loading, setLoading } = useContext(AuthContext) as ContextProps;
     const [email, setEmail] = useState('');
     const handleEmail = (e: any) => {
         setEmail(e.target.value);

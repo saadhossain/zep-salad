@@ -1,12 +1,13 @@
 'use client'
 import Link from 'next/link';
 import { useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthProvider';
 import GoogleLoginFunctionality from '../signin/GoogleLoginFunctionality';
 import ButtonLoader from '../components/loader/ButtonLoader';
+import { AuthContext } from '../context/AuthProvider';
+import { ContextProps } from '../interfaces/interfaces';
 
 const SignUp = () => {
-  const { createUser, loading, setLoading, user } = useContext(AuthContext);
+  const { createUser, loading, setLoading, user } = useContext(AuthContext) as ContextProps;
   const [email, setEmail] = useState('');
   const handleEmail = (e: any) => {
     setEmail(e.target.value);

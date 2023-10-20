@@ -1,12 +1,13 @@
 'use client'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useContext } from 'react'
 import { AiOutlineLogout } from 'react-icons/ai'
 import { AuthContext } from '../context/AuthProvider'
+import { ContextProps } from '../interfaces/interfaces'
 
 const Header = () => {
-    const { logOut, user } = useContext(AuthContext);
+    const { logOut, user } = useContext(AuthContext) as ContextProps;
+    console.log(user);
     return (
         <div className='w-[1240px] mx-auto py-2'>
             <div className='flex justify-between items-center'>

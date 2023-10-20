@@ -1,20 +1,22 @@
 'use client'
+import { Auth, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
+import { Props } from 'next/script';
 import React, { createContext, useEffect, useState } from 'react';
-import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth'
-import {app} from '../config/firebase.config'
+import { app } from '../config/firebase.config';
+import { ContextProps, UserProps } from '../interfaces/interfaces';
 
-export const AuthContext = createContext()
-const AuthProvider = ({ children }) => {
+export const AuthContext = createContext<ContextProps | null>(null)
+const AuthProvider: React.FC<Props> = ({ children }) => {
     //Get the firebase auth
-    const auth = getAuth(app);
+    const auth: Auth = getAuth(app);
     //Create a Provider for google login
     const googleProiver = new GoogleAuthProvider()
     //Loading state
     const [loading, setLoading] = useState(true)
     //Get user from the auth state and set to state
-    const [user, setUser] = useState()
+    const [user, setUser] = useState<UserProps | null>(null)
     //Create a new user using email and password
-    const createUser = (email, password) =>{
+    const createUser = (email: string, password: string) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
@@ -24,20 +26,21 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, googleProiver)
     }
     //Update User Profile after registration
-    const updateUser = (fullName, profileImage) => {
+    const currentUser: any = auth.currentUser;
+    const updateUser = (fullName: string, profileImage: string) => {
         setLoading(true)
-        return updateProfile(auth.currentUser, {
+        return updateProfile(currentUser, {
             displayName: fullName,
             photoURL: profileImage
         })
     }
     //User Password Reset
-    const passwordReset = (email) => {
+    const passwordReset = (email: string) => {
         setLoading(true)
         return sendPasswordResetEmail(auth, email)
     }
     //User login
-    const userLogin = (email, password) => {
+    const userLogin = (email: string, password: string) => {
         setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
@@ -47,15 +50,14 @@ const AuthProvider = ({ children }) => {
         return signOut(auth)
     }
     //Get user from auth 
-    useEffect(()=> {
-        const unSubscribe = onAuthStateChanged(auth, (currentUser) =>{
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, (currentUser: any) => {
             setUser(currentUser)
             setLoading(false)
         })
         return () => unSubscribe()
     }, [auth]);
-    const userName = 'Saad Hossain';
-    const authInfo = {createUser, googleLogin, updateUser, loading, setLoading, userLogin, user, logOut, passwordReset, userName}
+    const authInfo = { createUser, googleLogin, loading, setLoading, userLogin, user, logOut, passwordReset }
     return (
         <div>
             <AuthContext.Provider value={authInfo}>

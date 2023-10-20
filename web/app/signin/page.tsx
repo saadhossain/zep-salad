@@ -1,14 +1,15 @@
 'use client'
 import Link from 'next/link';
 import { useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthProvider';
-import GoogleLoginFunctionality from './GoogleLoginFunctionality';
+import GoogleLoginFunctionality from '../components/common/GoogleLoginFunctionality';
 import ButtonLoader from '../components/loader/ButtonLoader';
+import { AuthContext } from '../context/AuthProvider';
 import { ContextProps } from '../interfaces/interfaces';
 
 const SignIn = () => {
-    const { userLogin, loading, setLoading } = useContext(AuthContext) as ContextProps;
+    const { userLogin } = useContext(AuthContext) as ContextProps;
     const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
     const handleEmail = (e: any) => {
         setEmail(e.target.value);
     }
@@ -19,7 +20,7 @@ const SignIn = () => {
         const form = e.target
         const password = form.password.value
         userLogin(email, password)
-            .then((result: any) => {
+            .then(async (result: any) => {
                 setLoading(false);
             })
             .catch((err: any) => {
@@ -53,7 +54,7 @@ const SignIn = () => {
                     <div className="space-y-2">
                         <div>
                             <button
-                                type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-primary text-gray-900">{loading ? <ButtonLoader title='Signing In'/>: 'Sign In'}</button>
+                                type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-primary text-gray-900">{loading ? <ButtonLoader title='Signing In' /> : 'Sign In'}</button>
                         </div>
                         <p className="px-6 text-sm text-center text-gray-400">Don't have an account yet?
                             <Link href="/signup" className="text-xl font-semibold ml-2 text-primary">Sign up</Link>.

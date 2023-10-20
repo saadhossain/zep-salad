@@ -7,7 +7,7 @@ import { ContextProps } from '../interfaces/interfaces'
 
 const Header = () => {
     const { logOut, user } = useContext(AuthContext) as ContextProps;
-    console.log(user);
+    // console.log(user);
     return (
         <div className='w-[1240px] mx-auto py-2'>
             <div className='flex justify-between items-center'>

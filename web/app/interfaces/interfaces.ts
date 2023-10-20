@@ -2,11 +2,8 @@ import { Auth, UserCredential } from 'firebase/auth'
 import { Dispatch, SetStateAction } from 'react'
 
 export interface UserProps {
-    accessToken: string,
-    auth: Auth,
     displayName: string,
     email: string,
-    emailVerified: boolean,
     photoURL?:string | null,
     uid: string,
 }

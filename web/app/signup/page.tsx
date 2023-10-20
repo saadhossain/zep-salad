@@ -1,14 +1,16 @@
 'use client'
 import Link from 'next/link';
 import { useContext, useState } from 'react';
-import GoogleLoginFunctionality from '../signin/GoogleLoginFunctionality';
 import ButtonLoader from '../components/loader/ButtonLoader';
 import { AuthContext } from '../context/AuthProvider';
 import { ContextProps } from '../interfaces/interfaces';
+import { saveUsersToDatabase } from '../utils/utils';
+import GoogleLoginFunctionality from '../components/common/GoogleLoginFunctionality';
 
 const SignUp = () => {
-  const { createUser, loading, setLoading, user } = useContext(AuthContext) as ContextProps;
+  const { createUser, user } = useContext(AuthContext) as ContextProps;
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   const handleEmail = (e: any) => {
     setEmail(e.target.value);
   }
@@ -19,7 +21,10 @@ const SignUp = () => {
     const form = e.target
     const password = form.password.value
     createUser(email, password)
-      .then((result: any) => {
+      .then(async (result: any) => {
+        const user = result.user;
+        const data = await saveUsersToDatabase(user);
+        console.log(data);
         setLoading(false);
       })
       .catch((err: any) => {
@@ -27,7 +32,7 @@ const SignUp = () => {
         setLoading(false);
       })
   }
-  console.log(user)
+  // console.log(user)
   return (
     <div className='flex flex-col items-center my-16'>
       <div className="flex flex-col w-2/5 p-6 rounded-md sm:p-10 bg-secondary text-gray-100 shadow-2xl">
@@ -53,7 +58,7 @@ const SignUp = () => {
           <div className="space-y-2">
             <div>
               <button
-                type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-primary text-gray-900">{loading ? <ButtonLoader title='Creating Account'/>: 'Sign Up'}</button>
+                type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-primary text-gray-900">{loading ? <ButtonLoader title='Creating Account' /> : 'Sign Up'}</button>
             </div>
             <p className="px-6 text-sm text-center text-gray-400">Already have an account?
               <Link href="/signin" className="text-xl font-semibold ml-2 text-primary">Sign In</Link>.

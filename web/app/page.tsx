@@ -7,12 +7,12 @@ import WhyChooseUs from './components/homecomponents/WhyChooseUs';
 
 export default function Home() {
   return (
-    <main>
+    <>
       <HeroSection />
       <WhyChooseUs />
       <Testimonials />
       <FoodMenus />
       <Subscribe />
-    </main>
+    </>
   )
 }

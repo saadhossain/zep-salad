@@ -1,15 +1,18 @@
 'use client'
 import Link from 'next/link';
+import Cookies from "js-cookie";
 import { useContext, useState } from 'react';
 import GoogleLoginFunctionality from '../components/common/GoogleLoginFunctionality';
 import ButtonLoader from '../components/loader/ButtonLoader';
 import { AuthContext } from '../context/AuthProvider';
 import { ContextProps } from '../interfaces/interfaces';
+import { useRouter } from 'next/navigation';
 
 const SignIn = () => {
     const { userLogin } = useContext(AuthContext) as ContextProps;
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
     const handleEmail = (e: any) => {
         setEmail(e.target.value);
     }
@@ -20,7 +23,10 @@ const SignIn = () => {
         const form = e.target
         const password = form.password.value
         userLogin(email, password)
-            .then(async (result: any) => {
+            .then(() => {
+                //Redirect to dashboard page after login
+                Cookies.set("loggedin", "true");
+                router.push("/dashboard");
                 setLoading(false);
             })
             .catch((err: any) => {

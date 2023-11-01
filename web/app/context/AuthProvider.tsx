@@ -15,6 +15,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     const [loading, setLoading] = useState(true)
     //Get user from the auth state and set to state
     const [user, setUser] = useState<UserProps | null>(null)
+    //Get User from 
     //Create a new user using email and password
     const createUser = (email: string, password: string) => {
         setLoading(true)
@@ -57,7 +58,19 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         })
         return () => unSubscribe()
     }, [auth]);
-    const authInfo = { createUser, googleLogin, loading, setLoading, userLogin, user, logOut, passwordReset }
+    //Get Saved user from database
+    const [savedUser, setSavedUser] = useState<UserProps | null>(null);
+    useEffect(() => {
+        const getSavedUser = async () => {
+            const res = await fetch(`http://localhost:3001/api/users/admin`);
+            const { data } = await res.json();
+            console.log(data[0]);
+            setSavedUser(data[0]);
+        }
+        getSavedUser();
+    }, []);
+    const [rating, setRating] = useState('');
+    const authInfo = { createUser, googleLogin, loading, setLoading, userLogin, user, logOut, passwordReset, savedUser , rating, setRating}
     return (
         <div>
             <AuthContext.Provider value={authInfo}>

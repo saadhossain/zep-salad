@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import AuthProvider from '../app/context/AuthProvider'
 import Footer from './components/Footer'
 import Header from './components/Header'
+import AuthProvider from './context/AuthProvider'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -22,7 +22,9 @@ export default function RootLayout({
       <body className='w-full mx-auto'>
         <AuthProvider>
           <Header />
-          {children}
+          <main>
+            {children}
+          </main>
           <Footer />
         </AuthProvider>
       </body>

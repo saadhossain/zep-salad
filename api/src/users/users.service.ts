@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { FirebaseCollection } from 'src/config/collection';
 import { OrmService } from 'src/orm/orm.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -27,19 +26,11 @@ export class UsersService {
     }
   }
 
-  findAll() {
-    return `This action returns all users`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async getAllAdmins() {
+    const fieldName = 'isAdmin';
+    const fieldValue = true;
+    const userCollection = FirebaseCollection.users;
+    const data = await this.ormService.findDocumentsByFieldName(userCollection, fieldName, fieldValue);
+    return data;
   }
 }

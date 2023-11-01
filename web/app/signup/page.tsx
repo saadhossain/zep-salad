@@ -1,16 +1,19 @@
 'use client'
+import Cookies from "js-cookie";
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 import { useContext, useState } from 'react';
+import GoogleLoginFunctionality from '../components/common/GoogleLoginFunctionality';
 import ButtonLoader from '../components/loader/ButtonLoader';
 import { AuthContext } from '../context/AuthProvider';
 import { ContextProps } from '../interfaces/interfaces';
 import { saveUsersToDatabase } from '../utils/utils';
-import GoogleLoginFunctionality from '../components/common/GoogleLoginFunctionality';
 
 const SignUp = () => {
   const { createUser, user } = useContext(AuthContext) as ContextProps;
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const handleEmail = (e: any) => {
     setEmail(e.target.value);
   }
@@ -24,6 +27,9 @@ const SignUp = () => {
       .then(async (result: any) => {
         const user = result.user;
         const data = await saveUsersToDatabase(user);
+        //Redirect to dashboard page after register
+        Cookies.set("loggedin", "true");
+        router.push("/dashboard");
         console.log(data);
         setLoading(false);
       })
